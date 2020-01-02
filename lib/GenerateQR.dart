@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:qrcode_app/Dict.dart';
 import 'package:qrcode_app/displayQR.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class GenerateQR extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class GenerateQR extends StatefulWidget {
 }
 
 class _GenerateQRState extends State<GenerateQR> {
+  //HashedData hashedData = new HashedData();
   String serialNumber = "";
   String ownerName = "";
   String modelNumber = "";
@@ -167,12 +170,18 @@ class _GenerateQRState extends State<GenerateQR> {
       detailsString = detailsString + list[i];
       detailsString = detailsString + "\n";
     }
+    // final cryptor = new PlatformStringCryptor();
+    // //final String key = await cryptor.generateRandomKey();
+    // final password = "ab";
+    // final String salt = await cryptor.generateSalt();
+    // final String key = await cryptor.generateKeyFromPassword(password, salt);
     var bytes = utf8.encode(detailsString);
     String decodedString = utf8.decode(bytes);
     var digest = sha1.convert(bytes);
     debugPrint("detail string is" + digest.toString());
     debugPrint("decoded string is" + decodedString);
     debugPrint(digest.toString());
+    //hashedData.addData(list, digest.toString());
     return digest.toString();
   }
 }

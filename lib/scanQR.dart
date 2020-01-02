@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:qrcode_app/Dict.dart';
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -41,20 +42,21 @@ class _ScanState extends State<ScanScreen> {
               Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: displayDetails(barcode)),
+                  child: getDetails(barcode)),
             ],
           ),
         ));
   }
 
-  Container displayDetails(String barcode) {
-    List<int> list = barcode.codeUnits;
-    String details = "";
-    details += ascii.decode(list);
-    Digest digest = sha1.convert(barcode.codeUnits);
-    debugPrint("nkdscanned string is " + digest.toString());
-    return Container(child: Text(""));
-  }
+  // Container displayDetails(String barcode) {
+  //   // List<int> list = barcode.codeUnits;
+  //   // String details = "";
+  //   // details += ascii.decode(list);
+  //   // Digest digest = sha1.convert(barcode.codeUnits);
+  //   debugPrint("nkdscanned string is " + barcode);
+  //   List<String>
+  //   return Container(child: Text(""));
+  // }
 
   Future scan() async {
     try {
@@ -74,5 +76,15 @@ class _ScanState extends State<ScanScreen> {
     } catch (e) {
       setState(() => this.barcode = 'Unknown error: $e');
     }
+  }
+
+  Container getDetails(String hashCode) {
+    //HashedData hashedData = new HashedData();
+    //List<String> list = hashedData.getData(hashCode);
+    //debugPrint(list.toString());
+    List<String> list = (details[hashCode]);
+    return Container(
+      child: Text(list.toString()),
+    );
   }
 }
