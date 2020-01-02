@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:qrcode_app/DetailsPage.dart';
 import 'package:qrcode_app/Dict.dart';
 
 class ScanScreen extends StatefulWidget {
@@ -39,10 +40,10 @@ class _ScanState extends State<ScanScreen> {
                     onPressed: scan,
                     child: const Text('START CAMERA SCAN')),
               ),
-              Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: getDetails(barcode)),
+              // Padding(
+              //     padding:
+              //         EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              //     child: getDetails(barcode)),
             ],
           ),
         ));
@@ -62,6 +63,7 @@ class _ScanState extends State<ScanScreen> {
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() => this.barcode = barcode);
+      getDetails(barcode);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
@@ -78,13 +80,12 @@ class _ScanState extends State<ScanScreen> {
     }
   }
 
-  Container getDetails(String hashCode) {
-    //HashedData hashedData = new HashedData();
-    //List<String> list = hashedData.getData(hashCode);
-    //debugPrint(list.toString());
-    List<String> list = (details[hashCode]);
-    return Container(
-      child: Text(list.toString()),
+  void getDetails(String hashCode) {
+    List<String> list = details[hashCode];
+    debugPrint(list.toString());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetailsPage(list)),
     );
   }
 }

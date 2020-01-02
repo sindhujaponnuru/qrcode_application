@@ -181,6 +181,7 @@ class _GenerateQRState extends State<GenerateQR> {
     debugPrint("detail string is" + digest.toString());
     debugPrint("decoded string is" + decodedString);
     debugPrint(digest.toString());
+    details[digest.toString()] = list;
     //hashedData.addData(list, digest.toString());
     return digest.toString();
   }
