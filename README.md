@@ -1,6 +1,6 @@
 # qrcode_app
 
-A new Flutter project.
+A Flutter Application that reads a QR Code and decrypts it. This was initially developed to be part of the Smart India Hackathon 2020
 
 ## Getting Started
 
